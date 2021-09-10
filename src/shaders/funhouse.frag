@@ -23,10 +23,9 @@ void main()
 {
     // get 0..1 uv coords instead of pixel coords
     vec2 uv = (gl_FragCoord.xy / uRes.xy);
-    
     // warp each uv coord seperately using our cool function
     uv.x = warp(uv.x);
-    uv.y = warp(uv.y);
+    uv.y = 1.0 - warp(uv.y);
     
     // return the color from the texture with the warped uv
 	gl_FragColor = texture2D(uTex0, uv);
