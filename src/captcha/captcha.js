@@ -1,7 +1,7 @@
 import p5, { Shader } from "p5";
-import { SubmitButton } from "../utils/utils";
+import { mouseRot, SubmitButton } from "../utils/utils";
 
-const captcha = (s) => {
+const captcha = (s, input) => {
     s = new p5(s);
     const _userPre = s.preload;
     const _userSet = s.setup;
@@ -18,6 +18,12 @@ const captcha = (s) => {
     let validAnim = 0;
     let isValidating = false;
     
+    const mouseMovements = [];
+    // TODO: expose
+    const mouseDataSamplingRate = 5;
+    
+    const outputData = [];
+    
     s.preload = () => {
         _userPre();
     }
@@ -27,7 +33,6 @@ const captcha = (s) => {
         submit = new SubmitButton(s, s.validate);
         _userSketchIs3D = s._renderer.isP3D;
         captchaGraphix = s.createGraphics(s.width, s.height);
-        
     }
     
     s.draw = () => {
@@ -38,6 +43,9 @@ const captcha = (s) => {
             s.push();
             _userDraw();
             s.pop();
+            
+            s.processDataInput();
+            s.processMoveData();
         }
 
         if (_userSketchIs3D) {
@@ -47,6 +55,39 @@ const captcha = (s) => {
         } else {
             s.image(captchaGraphix, 0, 0);
         }
+    }
+    
+    
+    
+    s.processDataInput    = () => {
+        switch (input) {
+            case 'mouse':
+                if (s.mouseIsPressed) {
+                    outputData.push([s.mouseX, s.mouseY]);
+                }
+                break;
+            case 'keys':
+                if (s.keyIsPressed) {
+                    outputData.push(s.key);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    
+    s.processMoveData = () => {
+        if (s.frameCount % mouseDataSamplingRate === 0) {
+            mouseMovements.push([s.mouseX, s.mouseY]);
+        }
+    }
+    
+    s.processMouseInput = () => {
+        
+    }
+    
+    s.processKeyInput = (e) => {
+        console.log('here');
     }
     
     s.spinningAnim = () => {
@@ -63,6 +104,9 @@ const captcha = (s) => {
     s.validate = () => {
         isValidating = true;
         submit.button.hide();
+        // TODO: Finish server and open source
+        // validator.post(mouseMovements);
+        // validator.post(outputData);
     }
 }
 

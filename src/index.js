@@ -5,4 +5,4 @@ import captcha from './captcha/captcha';
 
 
 
-const sketch = captcha(violence);
+const sketch = captcha(violence, 'mouse');
