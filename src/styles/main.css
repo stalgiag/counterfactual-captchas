@@ -1,11 +1,16 @@
+@charset "UTF-8";
 @font-face {
-  font-family: 'Kar-Italic';
-  src: url('../../static/fonts/kar.otf') format('otf');
+  font-family: 'Ki';
+  src: url("../../static/fonts/kar.otf");
+  font-weight: normal;
+  font-style: italic;
 }
 
 @font-face {
-  font-family: 'Kar-Reg';
-  src: url('../../static/fonts/kar-reg.otf') format('otf');
+  font-family: 'K';
+  src: url("../../static/fonts/kar-reg.otf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 html {
@@ -20,14 +25,20 @@ canvas {
 
 .content-module {
   position: absolute;
-  left: 30%;
+  text-align: center;
+  left:0;
+  right:0;
+}
+
+img {
+  max-width: 60%;
 }
 
 .active {
   visibility: visible;
   animation-name: slideIn;
   animation-timing-function: ease-in-out;
-  animation-duration: 4s;
+  animation-duration: 1.5s;
   /* top:10%; */
   animation-fill-mode: forwards;
 }
@@ -35,14 +46,14 @@ canvas {
 .inactive {
   animation-name: slideOut;
   animation-timing-function: ease-in-out;
-  animation-duration: 2s;
+  animation-duration: 0.75s;
   animation-fill-mode: forwards;
   top: -100%;
 }
 
 #title {
   font-size: 80px;
-  font-family: 'Kar-Reg';
+  font-family: 'K';
 }
 
 @keyframes slideIn {
@@ -69,7 +80,7 @@ canvas {
 
 .captcha-prompt {
   text-align: center;
-  font-family: 'Kar-Italic', serif;
+  font-family: 'Ki', serif;
   font-size: 60px;
   margin: 0;
 }
@@ -80,14 +91,19 @@ canvas {
 
 .body-text {
   font-size: 40px;
-  text-align: left;
-  font-family: 'Kar-Reg', serif;
+  margin-left: 20%;
+  text-align: center;
+  font-family: 'K', serif;
   width: 60%;
 }
 
 .canvas-container {
   text-align: center;
   position: relative;
+}
+
+.canvas-container button {
+  margin-left: 30%;
 }
 
 #white-cover {
