@@ -1,0 +1,100 @@
+@font-face {
+  font-family: 'Kar-Italic';
+  src: url('../../static/fonts/kar.otf') format('otf');
+}
+
+@font-face {
+  font-family: 'Kar-Reg';
+  src: url('../../static/fonts/kar-reg.otf') format('otf');
+}
+
+html {
+  text-align: center;
+  overflow: hidden;
+}
+
+canvas {
+  border: 1px solid black;
+  margin: 10px;
+}
+
+.content-module {
+  position: absolute;
+  left: 30%;
+}
+
+.active {
+  visibility: visible;
+  animation-name: slideIn;
+  animation-timing-function: ease-in-out;
+  animation-duration: 4s;
+  /* top:10%; */
+  animation-fill-mode: forwards;
+}
+
+.inactive {
+  animation-name: slideOut;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  top: -100%;
+}
+
+#title {
+  font-size: 80px;
+  font-family: 'Kar-Reg';
+}
+
+@keyframes slideIn {
+  from {
+    top: 100%;
+    opacity: 0%;
+  }
+  to {
+    top: 10%;
+    opacity: 100%;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    top: 10%;
+    opacity: 100%;
+  }
+  to {
+    top: -100%;
+    opacity: 0%;
+  }
+}
+
+.captcha-prompt {
+  text-align: center;
+  font-family: 'Kar-Italic', serif;
+  font-size: 60px;
+  margin: 0;
+}
+
+.disabled {
+  visibility: hidden;
+}
+
+.body-text {
+  font-size: 40px;
+  text-align: left;
+  font-family: 'Kar-Reg', serif;
+  width: 60%;
+}
+
+.canvas-container {
+  text-align: center;
+  position: relative;
+}
+
+#white-cover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: white;
+}

@@ -1,6 +1,6 @@
 import ditherFrag from '../shaders/bayer-dither.frag';
 import vert from '../shaders/persp.vert';
-import { mouseRot, paint, SubmitButton } from '../utils/utils';
+import { mouseRot, paint } from '../utils/utils';
 
 const violence = (s) => {
     let pg;
@@ -53,8 +53,8 @@ const violence = (s) => {
         s.rect(-s.width/2 + s.width/10, -s.height/2 + s.height/10, s.width - s.width / 5, s.height - s.height / 5);
         s.pop();
         
-        s._renderer.GL.disable(s._renderer.GL.DEPTH_TEST);
-        s.text('Which images are violent?', 0, -s.height / 2);
+        // s._renderer.GL.disable(s._renderer.GL.DEPTH_TEST);
+        // s.text('Which images are violent?', 0, -s.height / 2);
     }
     
 }

@@ -1,7 +1,7 @@
 import p5, { Shader } from "p5";
 import { mouseRot, SubmitButton } from "../utils/utils";
 
-const captcha = (s, input) => {
+const captcha = (s, input, eltId) => {
     s = new p5(s);
     const _userPre = s.preload;
     const _userSet = s.setup;
@@ -15,8 +15,8 @@ const captcha = (s, input) => {
     let spinningAnimRot = 0;
     let spinningAnimSpeed = 0.1;
     
-    let validAnim = 0;
     let isValidating = false;
+    let finishedValidating = false;
     
     const mouseMovements = [];
     // TODO: expose
@@ -30,15 +30,22 @@ const captcha = (s, input) => {
     
     s.setup = () => {
         _userSet();
+        const d = document.getElementById(eltId);
         submit = new SubmitButton(s, s.validate);
+        d.appendChild(s.canvas);
+        d.appendChild(submit.button.elt);
         _userSketchIs3D = s._renderer.isP3D;
         captchaGraphix = s.createGraphics(s.width, s.height);
+        captchaGraphix.textAlign(s.CENTER, s.CENTER);
     }
     
     s.draw = () => {
         if (isValidating) {
             captchaGraphix.background(0, 20);
             s.spinningAnim();
+        } else if (finishedValidating) {
+            captchaGraphix.background(255, 10);
+            s.checkMark();
         } else {
             s.push();
             _userDraw();
@@ -59,7 +66,7 @@ const captcha = (s, input) => {
     
     
     
-    s.processDataInput    = () => {
+    s.processDataInput = () => {
         switch (input) {
             case 'mouse':
                 if (s.mouseIsPressed) {
@@ -87,7 +94,6 @@ const captcha = (s, input) => {
     }
     
     s.processKeyInput = (e) => {
-        console.log('here');
     }
     
     s.spinningAnim = () => {
@@ -101,9 +107,21 @@ const captcha = (s, input) => {
         captchaGraphix.pop();
     }
     
+    s.checkMark = () => {
+        captchaGraphix.textSize(200);
+        captchaGraphix.fill(0);
+        captchaGraphix.text('✓', captchaGraphix.width / 2, captchaGraphix.height / 2);
+    }
+    
+    s.validationSuccessful = () => {
+        finishedValidating = true;
+        isValidating = false;
+    }
+    
     s.validate = () => {
         isValidating = true;
         submit.button.hide();
+        setTimeout(s.validationSuccessful, s.random(1200, 2500));
         // TODO: Finish server and open source
         // validator.post(mouseMovements);
         // validator.post(outputData);

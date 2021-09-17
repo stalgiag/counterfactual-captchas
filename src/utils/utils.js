@@ -9,12 +9,17 @@ export const mouseRot = (s, target, amt) => {
 export const paint = (s, target, color, size) => {
     target.noStroke();
     target.fill(color);
-    // TODO: Actual raycasting
+
+    const magicCoords = magicMouseCoordConversion(s);
+    target.circle(magicCoords.x, magicCoords.y, size + s.random(-size/2, size/2));
+}
+
+// TODO: Actual raycasting
+export const magicMouseCoordConversion = (s) => {
     let magicCorrectX = s.map(s.mouseX, 0, s.width, 0.5, 1.3);
     let magicCorrectY = s.map(s.mouseY, 0, s.height, 0.5, 1.3);
-    let magicX = s.mouseX * magicCorrectX;
-    let magicY = s.mouseY * magicCorrectY;
-    target.circle(magicX, magicY, size + s.random(-size/2, size/2));
+    
+    return { x: s.mouseX * magicCorrectX, y: s.mouseY * magicCorrectY };
 }
 
 // TODO: Custom submit button
@@ -34,7 +39,7 @@ export class SubmitButton {
         this.button.size(this.w, this.h);
         this.button.position(this.x, this.y);
         this.button.mousePressed(callback);
-        this.button.style('font-size', this.w/4+'px');
+        this.button.style('font-size', this.w / 4 + 'px');
     }
     
 }
